@@ -1,68 +1,23 @@
 #!/bin/bash
 
-# Check if log file argument is provided
-if [ $# -ne 1 ]; then
-    echo "Usage: ./log-analyzer.sh <logfile>"
-    exit 1
-fi
+echo "Top 5 IP Addresses"
+echo "------------------"
+awk '{print $1}' access.log | sort | uniq -c | sort -nr | head -5
 
-LOGFILE="$1"
+echo ""
 
-# Check whether the file exists
-if [ ! -f "$LOGFILE" ]; then
-    echo "Error: File '$LOGFILE' not found."
-    exit 1
-fi
+echo "Top 5 Requested Paths"
+echo "---------------------"
+awk -F'"' '{print $2}' access.log | cut -d' ' -f2 | sort | uniq -c | sort -nr | head -5
 
-echo "=============================================="
-echo "Top 5 IP addresses with the most requests"
-echo "=============================================="
+echo ""
 
-awk '{print $1}' "$LOGFILE" \
-| sort \
-| uniq -c \
-| sort -rn \
-| head -5 \
-| awk '{print $2 " - " $1 " requests"}'
+echo "Top 5 Status Codes"
+echo "------------------"
+awk '{print $9}' access.log | sort | uniq -c | sort -nr | head -5
 
-echo
-echo "=============================================="
-echo "Top 5 Most Requested Paths"
-echo "=============================================="
+echo ""
 
-awk -F'"' '{print $2}' "$LOGFILE" \
-| awk '{print $2}' \
-| sort \
-| uniq -c \
-| sort -rn \
-| head -5 \
-| awk '{print $2 " - " $1 " requests"}'
-
-echo
-echo "=============================================="
-echo "Top 5 Response Status Codes"
-echo "=============================================="
-
-awk '{print $9}' "$LOGFILE" \
-| sort \
-| uniq -c \
-| sort -rn \
-| head -5 \
-| awk '{print $2 " - " $1 " requests"}'
-
-echo
-echo "=============================================="
 echo "Top 5 User Agents"
-echo "=============================================="
-
-awk -F'"' '{print $6}' "$LOGFILE" \
-| sort \
-| uniq -c \
-| sort -rn \
-| head -5 \
-| awk '{
-    count=$1
-    $1=""
-    sub(/^ /,"")
-    print $0 " - " count " requests"
-}'
+echo "-----------------"
+awk -F'"' '{print $6}' access.log | sort | uniq -c | sort -nr | head -5
