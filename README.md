@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Nginx Log Analyzer
 
 A simple Linux Shell scripting project that analyzes Nginx access logs and generates useful statistics from the command line.
@@ -147,3 +148,9 @@ Through this project, I learned how to:
 **Om Yenganti**
 
 
+=======
+## Roadmap.sh Project
+
+Project URL:
+https://roadmap.sh/projects/nginx-log-analyser
+>>>>>>> bb822f8 (Add roadmap.sh project URL to README)
