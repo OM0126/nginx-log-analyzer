@@ -43,7 +43,7 @@ Run the script.
 ./log-analyzer.sh
 ```
 
-## Commands Used
+# Commands Used
 
 - awk
 - sort
