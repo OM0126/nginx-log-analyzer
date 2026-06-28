@@ -6,7 +6,7 @@ awk '{print $1}' access.log | sort | uniq -c | sort -nr | head -5
 
 echo ""
 
-echo "Top 5 Requested Paths"
+echo "Top 5 Requested paths"
 echo "---------------------"
 awk -F'"' '{print $2}' access.log | cut -d' ' -f2 | sort | uniq -c | sort -nr | head -5
 
